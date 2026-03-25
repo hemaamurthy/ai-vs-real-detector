@@ -29,4 +29,11 @@ def detect_image(path):
 
     confidence, predicted = torch.max(probs, 1)
 
-    return f"{classes[predicted.item()]} ({confidence.item()*100:.2f}%)"
+    conf = confidence.item() * 100
+    label = classes[predicted.item()]
+    if conf < 60:
+         return f"Uncertain ({conf:.2f}%)"
+    else:
+         return f"{label} ({conf:.2f}%)"
+
+
